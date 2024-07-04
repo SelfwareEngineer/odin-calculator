@@ -5,6 +5,7 @@ body {
 
 #calculator {
   width: 20em;
+  height: 30em;
   padding: 2em;
   border-radius: 1em;
   display: flex;
@@ -15,14 +16,17 @@ body {
 
 #display {
   background-color: #828381;
-  flex: 1, 1, 20%; /* WARN: sus */
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 #buttons {
-  flex: 5, 5, 70%;
   display: flex;
   background-color: #383838;
   padding: 0.5em;
+  height: 15em;
+  flex-grow: 5;
+  flex-basis: 0;
 }
 
 #buttons,
@@ -56,6 +60,12 @@ body {
 #math {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+}
+
+#math * {
+  background-color: #848484;
+  flex-grow: 1;
 }
 
 #eval {
