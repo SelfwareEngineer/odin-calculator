@@ -1,11 +1,18 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+
 body {
   text-align: center;
   background-color: #212f4d;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 3em;
 }
 
 #calculator {
-  width: 20em;
-  height: 30em;
+  width: 19em;
+  height: 23em;
   padding: 2em;
   border-radius: 1em;
   display: flex;
@@ -16,17 +23,18 @@ body {
 
 #display {
   background-color: #828381;
-  flex-grow: 1;
-  flex-basis: 0;
+  height: 4em;
+}
+
+#displayContent {
+  margin: 0;
 }
 
 #buttons {
   display: flex;
   background-color: #383838;
   padding: 0.5em;
-  height: 15em;
-  flex-grow: 5;
-  flex-basis: 0;
+  flex-grow: 1;
 }
 
 #buttons,
@@ -38,11 +46,14 @@ body {
   border-radius: 0.5em;
   border: 0.15em solid black;
   padding: 1em;
+  font-size: 1.1em;
+  font-weight: bolder;
 }
 
 #numbers {
   display: flex;
   flex-wrap: wrap;
+  flex: 3, 0, 0;
 }
 
 #numbers * {
@@ -60,12 +71,16 @@ body {
 #math {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1;
 }
 
 #math * {
   background-color: #848484;
-  flex-grow: 1;
+  flex: 1;
+}
+
+#math *:hover {
+  background-color: #636363;
 }
 
 #eval {
@@ -75,10 +90,18 @@ body {
 }
 
 #eval * {
-  flex-grow: 1;
+  flex: 1;
 }
 
 #buttonClear {
   background-color: #510404;
   color: white;
+}
+
+#buttonClear:hover {
+  background-color: #2d0202;
+}
+
+#buttonEquals:hover {
+  background-color: #bdbdbd;
 }
