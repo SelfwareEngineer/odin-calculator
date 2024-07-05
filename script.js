@@ -1,13 +1,15 @@
-let displayNode = document.querySelector("#displayContent");
-displayNode.textContent = "0";
+const displayNode = document.querySelector("#displayContent");
+let displayValue = "0";
 const nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const mathSyms = ["%", "x", "-", "+"];
+updateDisplay();
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("button")) {
     const button = e.target.textContent;
     let nodeText = displayNode.textContent;
     const expressionArr = nodeText.split(" ");
+    console.log(expressionArr);
     const expressionChars = expressionArr.join("").split("");
     const expressionLast = expressionChars[expressionChars.length - 1];
 
@@ -16,18 +18,22 @@ document.addEventListener("click", (e) => {
     }
 
     if (button === "C") {
-      displayNode.textContent = "0";
+      displayValue = "0";
+      updateDisplay();
     } else if (button === "=") {
-      displayNode.textContent = handleEquals(nodeText, expressionArr);
+      displayValue = handleEquals(nodeText, expressionArr);
+      updateDisplay();
     } else if (nums.includes(button)) {
-      displayNode.textContent = handleNumber(nodeText, button, expressionLast);
+      displayValue = handleNumber(nodeText, button, expressionLast);
+      updateDisplay();
     } else if (mathSyms.includes(button)) {
-      displayNode.textContent = handleMathSym(
+      displayValue = handleMathSym(
         nodeText,
         button,
         expressionArr,
         expressionLast,
       );
+      updateDisplay();
     } else {
       displayErrorMessage();
     }
@@ -57,9 +63,19 @@ function handleMathSym(nodeText, button, expressionArr, expressionLast) {
   }
 }
 
+// prevents calculatar display from overflowing
+function updateDisplay() {
+  if (displayValue.length > 15) {
+    result = displayValue.slice(displayValue.length - 15);
+  } else {
+    result = displayValue;
+  }
+
+  displayNode.textContent = result;
+}
+
 function displayErrorMessage() {
   toggleDisableButtons();
-
   displayNode.textContent = "ERROR";
 
   setTimeout(() => {
@@ -86,7 +102,7 @@ function toggleDisableButtons() {
 function operate(operand1, operator, operand2) {
   operand1 = Number(operand1);
   operand2 = Number(operand2);
-  console.log(operand1, operand2);
+  console.log(`operand1: ${operand1}, operand2: ${operand2}`);
 
   switch (operator) {
     case "+":
