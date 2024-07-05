@@ -7,28 +7,27 @@ updateDisplay();
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("button")) {
     const button = e.target.textContent;
-    let nodeText = displayNode.textContent;
-    const expressionArr = nodeText.split(" ");
+    const expressionArr = displayValue.split(" ");
     console.log(expressionArr);
     const expressionChars = expressionArr.join("").split("");
     const expressionLast = expressionChars[expressionChars.length - 1];
 
-    if (nodeText === "0") {
-      nodeText = "";
+    if (displayValue === "0") {
+      displayValue = "";
     }
 
     if (button === "C") {
       displayValue = "0";
       updateDisplay();
     } else if (button === "=") {
-      displayValue = handleEquals(nodeText, expressionArr);
+      displayValue = handleEquals(displayValue, expressionArr);
       updateDisplay();
     } else if (nums.includes(button)) {
-      displayValue = handleNumber(nodeText, button, expressionLast);
+      displayValue = handleNumber(displayValue, button, expressionLast);
       updateDisplay();
     } else if (mathSyms.includes(button)) {
       displayValue = handleMathSym(
-        nodeText,
+        displayValue,
         button,
         expressionArr,
         expressionLast,
@@ -40,26 +39,26 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function handleEquals(nodeText, expressionArr) {
-  if (isFullExpression(nodeText)) {
+function handleEquals(displayValue, expressionArr) {
+  if (isFullExpression(displayValue)) {
     return operate(expressionArr[0], expressionArr[1], expressionArr[2]);
   }
 }
 
-function handleNumber(nodeText, button, expressionLast) {
+function handleNumber(displayValue, button, expressionLast) {
   if (nums.includes(expressionLast)) {
-    return nodeText + button;
+    return displayValue + button;
   } else {
-    return nodeText + " " + button;
+    return displayValue + " " + button;
   }
 }
 
-function handleMathSym(nodeText, button, expressionArr, expressionLast) {
-  if (isFullExpression(nodeText)) {
+function handleMathSym(displayValue, button, expressionArr, expressionLast) {
+  if (isFullExpression(displayValue)) {
     result = operate(expressionArr[0], expressionArr[1], expressionArr[2]);
     return result + " " + button;
   } else if (nums.includes(expressionLast)) {
-    return nodeText + " " + button;
+    return displayValue + " " + button;
   }
 }
 
