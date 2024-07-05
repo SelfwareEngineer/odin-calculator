@@ -22,11 +22,16 @@ body {
 }
 
 #display {
+  display: flex;
+  gap: 5em;
+  justify-content: right;
+  padding: 0 0.5em;
   background-color: #828381;
-  height: 4em;
+  height: 3em;
 }
 
 #displayContent {
+  font-size: 2em;
   margin: 0;
 }
 
@@ -53,7 +58,7 @@ body {
 #numbers {
   display: flex;
   flex-wrap: wrap;
-  flex: 3, 0, 0;
+  flex: 3 0 0;
 }
 
 #numbers * {
