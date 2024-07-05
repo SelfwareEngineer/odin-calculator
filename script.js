@@ -1,8 +1,14 @@
-const displayNode = document.querySelector("#displayContent");
-let displayValue = "0";
 const nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const mathSyms = ["%", "x", "-", "+"];
+
+const displayNode = document.querySelector("#displayContent");
+let displayValue = "0";
 updateDisplay();
+
+// Record of operation history to determine behavior related to = button
+let lastButton = null;
+let lastOperator = null;
+let lastOperand = null;
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("button")) {
@@ -33,21 +39,26 @@ document.addEventListener("click", (e) => {
         expressionLast,
       );
       updateDisplay();
-    } else {
-      displayErrorMessage();
     }
+    lastButton = button;
   }
 });
 
 function handleEquals(displayValue, expressionArr) {
   if (isFullExpression(displayValue)) {
     return operate(expressionArr[0], expressionArr[1], expressionArr[2]);
+  } else if (expressionArr.length === 1) {
+    return operate(expressionArr[0], lastOperator, lastOperand);
   }
 }
 
 function handleNumber(displayValue, button, expressionLast) {
   if (nums.includes(expressionLast)) {
-    return displayValue + button;
+    if (lastButton === "=") {
+      return button;
+    } else {
+      return displayValue + button;
+    }
   } else {
     return displayValue + " " + button;
   }
@@ -117,10 +128,11 @@ function operate(operand1, operator, operand2) {
       break;
 
     case "%":
-      // TODO: - Snark for div/zero
       result = divide(operand1, operand2);
       break;
   }
+  lastOperator = operator;
+  lastOperand = `${operand2}`;
 
   return `${result}`;
 }
